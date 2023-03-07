@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "gcloud-pubsub",
+    "workspaces": [
+        "notification-server",
+        "mailing-worker"
+    ],
+    "scripts": {},
+    "dependencies": {
+        "concurrently": "^7.6.0"
+    }
+}
