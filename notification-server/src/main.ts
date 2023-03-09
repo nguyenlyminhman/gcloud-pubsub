@@ -6,7 +6,7 @@ import type { NestExpressApplication } from '@nestjs/platform-express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { join } from 'path';
 import helmet from 'helmet';
-import { SwaggerConfig } from './config/swagger';
+import { SwaggerConfig } from './configs/swagger';
 import { SharedModule } from './shared/shared.module';
 import { ServerConfigService } from './shared/server-config.service';
 
