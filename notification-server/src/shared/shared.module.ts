@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ServerConfigService } from './server-config';
+import { MongooseTenantConfigService } from './mongoose-tenant-config.service';
+import { ServerConfigService } from './server-config.service';
 
 const providers = [
-    ServerConfigService
+    ServerConfigService,
+    MongooseTenantConfigService
 ]
 
 @Module({

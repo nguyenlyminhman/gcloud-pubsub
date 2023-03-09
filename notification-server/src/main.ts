@@ -6,9 +6,9 @@ import type { NestExpressApplication } from '@nestjs/platform-express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { join } from 'path';
 import helmet from 'helmet';
-import { setupSwagger } from './config/swagger-setup';
+import { SwaggerConfig } from './config/swagger';
 import { SharedModule } from './shared/shared.module';
-import { ServerConfigService } from './shared/server-config';
+import { ServerConfigService } from './shared/server-config.service';
 
 async function bootstrap(): Promise<NestExpressApplication> {
   const app = await NestFactory.create<NestExpressApplication>(
@@ -19,6 +19,7 @@ async function bootstrap(): Promise<NestExpressApplication> {
 
   const serverConfig = app.select(SharedModule).get(ServerConfigService );
   const { port } = serverConfig.serverPort;
+  const { topic, subscription, projectId} = serverConfig.pubSubServerConfig;
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.use(helmet());
@@ -26,16 +27,16 @@ async function bootstrap(): Promise<NestExpressApplication> {
   // Microservice with gCloud PubSub
   app.connectMicroservice<MicroserviceOptions>({
     strategy: new GCPubSubServer({
-      topic: 'sms_topic',
-      subscription: 'sms_topic-sub',
+      topic: topic,
+      subscription: subscription,
       client: {
-        projectId: 'my-k8s-377707',
+        projectId: projectId,
       },
     }),
   });
   // Setup swagger
   if (serverConfig.swaggerEnabled) {
-    setupSwagger(app);
+    SwaggerConfig(app);
   }
   // Set global prefix for endpoint
   app.setGlobalPrefix('/api');

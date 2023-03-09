@@ -1,7 +1,7 @@
 import type { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-export function setupSwagger(app: INestApplication): void {
+export function SwaggerConfig(app: INestApplication): void {
   const documentBuilder = new DocumentBuilder()
     .setTitle('API NOTIFICATION SERVER')
     .setDescription('The NOTIFICATION API for HRMS system')

@@ -62,7 +62,13 @@ export class ServerConfigService {
         projectId: this.getString('PROJECT_ID')
     }
   }
-
+  get mongoConfig(){
+    return {
+        topic: this.getString('TOPIC'),
+        subscription: this.getString('SUBSCRIPTION'),
+        projectId: this.getString('PROJECT_ID')
+    }
+  }
   get swaggerEnabled(): boolean {
     return this.getBoolean('ENABLE_SWAGGER');
   }
